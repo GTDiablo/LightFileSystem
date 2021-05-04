@@ -9,8 +9,4 @@ public class Group {
     public Group(String name){
         this.name = name;
     }
-
-    public void join(User user){
-        user.setGroup(this);
-    }
 }

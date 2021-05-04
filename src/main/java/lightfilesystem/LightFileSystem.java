@@ -15,7 +15,7 @@ public class LightFileSystem {
         File file = new File("My Lfie", zsolt);
         File file2 = new File("Secret", jani);
 
-        coolGyus.join(zsolt);
+        zsolt.setGroup(coolGyus);
 
         file2.addGroup(coolGyus);
         file2.getAccessChecker().setGroupsAccess(Access.READ);
@@ -24,6 +24,7 @@ public class LightFileSystem {
         System.out.println(access);
 
          */
+
 
         /*
         Access access = file.getAccessChecker().getUserAccess(zsolt);
