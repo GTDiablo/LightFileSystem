@@ -6,13 +6,34 @@ public class LightFileSystem {
         System.out.println("Hello world!!!");
         Logger.info("We are running boys!!!!");
 
+        /*
         User zsolt = new User("Zsolt");
-        System.out.println(zsolt);
+        User jani = new User("Jani");
+
+        Group coolGyus = new Group("Cool Gyus");
+
         File file = new File("My Lfie", zsolt);
-        Access access = file.accessChecker.getUserAccess(zsolt);
+        File file2 = new File("Secret", jani);
+
+        coolGyus.join(zsolt);
+
+        file2.addGroup(coolGyus);
+        file2.getAccessChecker().setGroupsAccess(Access.READ);
+
+        Access access = file2.getAccessChecker().getUserAccess(zsolt);
         System.out.println(access);
+
+         */
+
+        /*
+        Access access = file.getAccessChecker().getUserAccess(zsolt);
+
+        System.out.println(access);
+
         System.out.println("Is protected: " + file.getIsProtected());
         file.setPassword("asd");
         System.out.println("Is protected: " + file.getIsProtected());
+
+         */
     }
 }

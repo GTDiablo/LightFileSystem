@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class AccessChecker {
     File file;
-    Access groupsAccess;
-    Access otherAccess;
+    Access groupsAccess = Access.NONE;
+    Access otherAccess = Access.NONE;
 
     AccessChecker(File file){
         this.file = file;
@@ -16,7 +16,12 @@ public class AccessChecker {
         if(file.author.equals(user)){
             return Access.ALL;
         }
-        return Access.NONE;
+
+        if(this.file.groups.contains(user.getGroup())){
+            return this.groupsAccess;
+        }
+
+        return this.otherAccess;
     }
 
     public static AccessChecker initAccessChecker(File file){

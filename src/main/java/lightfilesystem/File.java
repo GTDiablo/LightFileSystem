@@ -2,6 +2,7 @@ package lightfilesystem;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,7 @@ public class File {
         this.author = author;
         this.created = new Date();
         this.updated = new Date();
+        this.groups = new ArrayList<Group>();
         this.accessChecker = AccessChecker.initAccessChecker(this);
     }
 
@@ -36,5 +38,9 @@ public class File {
 
     public void setPassword(String password){
         this.password = Optional.of(password);
+    }
+
+    public void addGroup(Group group){
+        this.groups.add(group);
     }
 }

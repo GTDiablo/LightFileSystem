@@ -2,12 +2,10 @@ package lightfilesystem;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class User {
     String name;
-    List<Group> groups;
+    Group group;
 
     public User(String name){
         this.name = name;
