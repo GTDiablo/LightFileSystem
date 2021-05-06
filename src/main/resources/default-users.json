@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "username": "Moderator1",
+      "groups": "moderators"
+    },
+    {
+      "username": "Moderator2",
+      "groups": "moderators"
+    },
+    {
+      "username": "Just A User",
+      "groups": "basic-users"
+    },
+    {
+      "username": "Dev1",
+      "groups": "developers"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "files": [
+    {
+      "title": "README.txt",
+      "created": "",
+      "updated": "",
+      "content": "This is a README file",
+      "author": {
+        "username": "Moderator2",
+        "groups": "moderators"
+      },
+      "groups": [
+        "moderators"
+      ],
+      "password": null,
+      "accessChecker": {
+
+      }
+    }
+  ]
+}
