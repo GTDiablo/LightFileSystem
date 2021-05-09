@@ -27,6 +27,10 @@ public class File {
         return String.format("File(title=%s, author=%s)", this.title, this.author.getName());
     }
 
+    public boolean equals(File other){
+        return this.title.equals(other.getTitle());
+    }
+
     public File(String title, User author) {
         this.title = title;
         this.author = author;
