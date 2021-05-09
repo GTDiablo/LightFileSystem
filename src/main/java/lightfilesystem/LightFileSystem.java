@@ -1,6 +1,14 @@
 package lightfilesystem;
 import org.tinylog.Logger;
 
+/**
+ * The HelloWorld program implements an application that
+ * simply displays "Hello World!" to the standard output.
+ *
+ * @author  Boda Zsolt
+ * @version SNAPSHOT-1
+ * @since   2021-05-06
+ */
 public class LightFileSystem {
     public static void main(String[] args) {
         System.out.println("Hello world!!!");
