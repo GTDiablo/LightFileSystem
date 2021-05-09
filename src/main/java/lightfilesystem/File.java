@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Fájl osztály a fájl adatainak tárolására.
+ */
 @Data
 public class File {
     String title;
@@ -32,15 +35,30 @@ public class File {
         this.groups = new ArrayList<Group>();
     }
 
+    /**
+     * Vizsgálja, hogy a fájl jelszóval védett-e.
+     *
+     * @return Igaz, ha a fájlhoz jelszó lett adva.
+     */
     public boolean getIsProtected(){
         return this.password.isPresent();
     }
 
+    /**
+     * A fájlt le tudjuk védeni egy jelszóval.
+     *
+     * @param password A jelszó a fájlhoz.
+     */
     public void setPassword(String password){
         this.password = Optional.of(password);
     }
 
-    public void joinGroup(Group group){
+    /**
+     * A megadott csoportok tulajdonába kerül a fájl.
+     *
+     * @param group Csoport object
+     */
+    public void addGroup(Group group){
         this.groups.add(group);
     }
 

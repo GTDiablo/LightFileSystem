@@ -1,7 +1,9 @@
 package lightfilesystem;
 
 import lombok.Data;
-
+/**
+ * Felhasználó osztály a felhasználó adatainak tárolására.
+ */
 @Data
 public class User {
     String name;
@@ -20,6 +22,12 @@ public class User {
         return this.name.equals(other.name);
     }
 
+    /**
+     * Visszaad egy User osztály instance-t.
+     *
+     * @param name A felhasználó neve.
+     * @return Felhasználó instance.
+     */
     public static User createUser(String name){
         return new User(name);
     }
