@@ -1,6 +1,8 @@
 package lightfilesystem;
 import org.tinylog.Logger;
 
+import java.util.Optional;
+
 /**
  * The HelloWorld program implements an application that
  * simply displays "Hello World!" to the standard output.
@@ -13,6 +15,26 @@ public class LightFileSystem {
     public static void main(String[] args) {
         System.out.println("Hello world!!!");
         Logger.info("We are running boys!!!!");
+
+        /*
+        FileSystem fs = new FileSystem();
+
+        User zsolt = fs.createUser("Zsolt");
+        File cv = fs.createFile("MyCv.txt", zsolt);
+
+        cv.setContent("Im good, hire me!");
+
+        fs.getFiles().forEach(file -> System.out.println(file.getContent()));
+
+         */
+
+        /*
+        ApplicationStateManager asm = new ApplicationStateManager();
+
+
+        Optional<User> currentUser = asm.getCurrentUser();
+        System.out.println(currentUser);
+         */
 
         /*
         FileSystem fs = new FileSystem();

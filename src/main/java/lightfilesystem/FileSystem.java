@@ -21,7 +21,7 @@ public class FileSystem {
                 );
     }
 
-    public File addNewFile(String title, User author){
+    public File createFile(String title, User author){
         File file = File.createFile(title, author);
         this.files.add(file);
         return file;
@@ -46,6 +46,11 @@ public class FileSystem {
 
     // TODO
     public boolean canCreateGroup(String name){
-        return this.groups.stream().noneMatch(user -> user.getName().equals(name));
+        return this.groups.stream().noneMatch(group -> group.getName().equals(name));
+    }
+
+    // TODO
+    public boolean canCreateFile(String title){
+        return this.files.stream().noneMatch(file -> file.getTitle().equals(title));
     }
 }
