@@ -29,7 +29,7 @@ public class Application {
      * @return Igaz, ha létezik a config fájl.
      */
     public boolean isConfigFileExists(){
-        return true;
+        return false;
     }
 
     /**
@@ -37,6 +37,12 @@ public class Application {
      */
     public void loadConfigFile(){
         Logger.info("[APPLICATION] Trying to load config file...");
+
+        if(this.isConfigFileExists()){
+            Logger.info("[APPLICATION] Loading config from user's config file.");
+        } else {
+            Logger.info("[APPLICATION] Loading config from default config file");
+        }
 
     }
 
