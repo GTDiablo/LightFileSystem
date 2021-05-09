@@ -9,4 +9,13 @@ public class Group {
     public Group(String name){
         this.name = name;
     }
+
+    @Override
+    public String toString(){
+        return String.format("Group(name=%s)", this.name);
+    }
+
+    public static Group createGroup(String name){
+        return new Group(name);
+    }
 }

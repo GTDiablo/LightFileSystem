@@ -19,4 +19,8 @@ public class User {
     public boolean equals(User other){
         return this.name.equals(other.name);
     }
+
+    public static User createUser(String name){
+        return new User(name);
+    }
 }

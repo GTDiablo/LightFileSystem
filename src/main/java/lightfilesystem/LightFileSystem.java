@@ -15,6 +15,17 @@ public class LightFileSystem {
         Logger.info("We are running boys!!!!");
 
         /*
+        FileSystem fs = new FileSystem();
+        // System.out.println(fs);
+        System.out.println(fs.canCreateUser("Zsolt"));
+        User zsolt = fs.createUser("Zsolt");
+        //System.out.println(fs);
+        //System.out.println(zsolt);
+        System.out.println(fs.canCreateUser("Zsolt"));
+
+         */
+
+        /*
         User zsolt = new User("Zsolt");
         User jani = new User("Jani");
 

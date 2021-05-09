@@ -43,4 +43,8 @@ public class File {
     public void joinGroup(Group group){
         this.groups.add(group);
     }
+
+    public static File createFile(String title, User author){
+        return new File(title, author);
+    }
 }
