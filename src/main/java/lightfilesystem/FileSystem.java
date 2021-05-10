@@ -1,5 +1,6 @@
 package lightfilesystem;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class FileSystem {
      * @param title A fájl neve.
      * @return Létrehozott fájl.
      */
+    @JsonIgnore
     public File createFile(String title, User author){
         Logger.info(String.format("[FILESYSTEM] Creating file: %s by %s", title, author.getName()));
         File file = File.createFile(title, author);
@@ -46,6 +48,7 @@ public class FileSystem {
      * @param name A csoport neve.
      * @return Létrehozott csoport.
      */
+    @JsonIgnore
     public Group createGroup(String name){
         Logger.info(String.format("[FILESYSTEM] Creating group: %s", name));
         Group group = Group.createGroup(name);
@@ -59,6 +62,7 @@ public class FileSystem {
      * @param name A felhasználó neve.
      * @return Létrehozott felhasználó.
      */
+    @JsonIgnore
     public User createUser(String name){
         Logger.info(String.format("[FILESYSTEM] Creating user: %s", name));
         User user = User.createUser(name);
@@ -72,6 +76,7 @@ public class FileSystem {
      * @param name A felhasználó neve.
      * @return Igaz ha még nem létezik ilyen nevű felhasználó.
      */
+    @JsonIgnore
     public boolean canCreateUser(String name){
         return this.users.stream().noneMatch(user -> user.getName().equals(name));
     }
@@ -82,6 +87,7 @@ public class FileSystem {
      * @param name A csoport neve.
      * @return Igaz ha még nem létezik ilyen nevű csoport.
      */
+    @JsonIgnore
     public boolean canCreateGroup(String name){
         return this.groups.stream().noneMatch(group -> group.getName().equals(name));
     }
@@ -92,6 +98,7 @@ public class FileSystem {
      * @param title A fájl neve.
      * @return Igaz ha még nem létezik ilyen nevű fájl.
      */
+    @JsonIgnore
     public boolean canCreateFile(String title){
         return this.files.stream().noneMatch(file -> file.getTitle().equals(title));
     }

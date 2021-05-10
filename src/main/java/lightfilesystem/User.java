@@ -9,6 +9,7 @@ public class User {
     String name;
     Group group;
 
+    public User(){}
     public User(String name){
         this.name = name;
     }

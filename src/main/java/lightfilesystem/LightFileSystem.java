@@ -1,6 +1,7 @@
 package lightfilesystem;
 import org.tinylog.Logger;
 
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -16,6 +17,21 @@ public class LightFileSystem {
         System.out.println("Hello world!!!");
         Logger.info("We are running boys!!!!");
 
+        /*
+        Application app = new Application();
+
+        try {
+            app.loadConfigFile();
+            System.out.println(app.getFilesystem());
+            User asd = app.getFilesystem().createUser("JANIVOKAZTCSOH");
+            app.saveConfigFile();
+
+        } catch (IOException e){
+            System.out.println("HIBA");
+            System.out.println(e);
+        }
+
+         */
         /*
         FileSystem fs = new FileSystem();
 
