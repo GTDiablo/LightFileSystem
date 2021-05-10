@@ -21,7 +21,13 @@ public class Application {
     FileSystem filesystem;
     ApplicationStateManager stateManager;
 
+    /**
+     * Konfig fájl neve amiben elmentjük a fylesystem adatait
+     */
     public final String CONFIG_FILE_NAME = "filesystem.json";
+    /**
+     * Object mapper, ami a json írásában és olvasásában segít
+     */
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new JavaTimeModule());
 
     /**
