@@ -17,6 +17,35 @@ public class Main {
         System.out.println("Hello world!!!");
         Logger.info("We are running boys!!!!");
 
+
+        /*
+        try {
+            var lfs = LightFileSystem.getInstance();
+            lfs.init();
+            System.out.println(lfs.getFilesystem());
+
+            var zsolt = lfs.getFilesystem().createUser("Zsolt");
+
+            // LightFileSystem.getInstance().getStateManager().setCurrentUser(Optional.of(zsolt));
+            var a = lfs.getFilesystem().createUser("Zsolt");
+            var b = lfs.getFilesystem().createUser("Zsolt");
+            var c = lfs.getFilesystem().createUser("Zsolt");
+
+            var lfs2 = LightFileSystem.getInstance();
+            System.out.println(lfs2.getFilesystem());
+
+            lfs2.saveConfigFile();
+
+            var currentUser = LightFileSystem.getInstance().getStateManager().getCurrentUser();
+            System.out.println(currentUser.get());
+        } catch (IOException e){
+            System.out.println("HIBA");
+        }
+
+         */
+
+
+
         /*
         Application app = new Application();
 

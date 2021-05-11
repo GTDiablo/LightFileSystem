@@ -22,6 +22,7 @@ public class LightFileSystem {
     FileSystem filesystem;
     ApplicationStateManager stateManager;
     private static LightFileSystem instance;
+    boolean isInitalized = false;
 
     /**
      * Konfig fájl neve amiben elmentjük a fylesystem adatait
@@ -80,6 +81,16 @@ public class LightFileSystem {
             this.filesystem = OBJECT_MAPPER.readValue(is, new TypeReference<FileSystem>() {});
         }
 
+    }
+
+    /**
+     * Felállítja a rendszert.
+     */
+    public void init() throws IOException {
+        this.loadConfigFile();
+        this.stateManager = new ApplicationStateManager();
+        this.stateManager.setCurrentUser(this.filesystem.getUsers().stream().findFirst());
+        this.isInitalized = true;
     }
 
     /**
