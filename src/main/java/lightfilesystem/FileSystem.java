@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.tinylog.Logger;
 
 /**
@@ -101,5 +103,27 @@ public class FileSystem {
     @JsonIgnore
     public boolean canCreateFile(String title){
         return this.files.stream().noneMatch(file -> file.getTitle().equals(title));
+    }
+
+    /**
+     * Visszaadja a kért felhasználót a neve alapján.
+     *
+     * @param name A felhasználó neve.
+     * @return Kért felhasználó.
+     */
+    @JsonIgnore
+    public Optional<User> getUser(String name){
+        return this.users.stream().filter(user -> user.getName().equals(name)).findFirst();
+    }
+
+    /**
+     * Visszaadja a kért fájlt a neve alapján.
+     *
+     * @param title A fájl neve.
+     * @return Kért fájl.
+     */
+    @JsonIgnore
+    public Optional<File> getFile(String title){
+        return this.files.stream().filter(file -> file.getTitle().equals(title)).findFirst();
     }
 }

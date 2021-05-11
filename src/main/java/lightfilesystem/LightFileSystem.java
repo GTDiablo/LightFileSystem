@@ -15,11 +15,13 @@ import java.io.File;
 /**
  * Maga az alkalmazás modell és vezérlő rétege.
  * Valamint a folyamata irányító eljárásokat idító osztály.
+ * A class maga singleton, szóval csak egy példány lehet belőle.
  */
 @Data
 public class LightFileSystem {
     FileSystem filesystem;
     ApplicationStateManager stateManager;
+    private static LightFileSystem instance;
 
     /**
      * Konfig fájl neve amiben elmentjük a fylesystem adatait
@@ -29,6 +31,20 @@ public class LightFileSystem {
      * Object mapper, ami a json írásában és olvasásában segít
      */
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new JavaTimeModule());
+
+    private LightFileSystem(){}
+
+    /**
+     * Singleton design patternhez metódus, ami visszadja az egyetlen példányt.
+     *
+     * @return Singleton példány.
+     */
+    public static LightFileSystem getInstance(){
+        if(instance == null){
+            instance = new LightFileSystem();
+        }
+        return instance;
+    }
 
     /**
      * Megkeresi a config fájlt
