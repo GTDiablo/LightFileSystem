@@ -1,97 +1,76 @@
 package lightfilesystem;
-import org.tinylog.Logger;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.Data;
+import org.tinylog.Logger;
+import java.io.InputStream;
 import java.io.IOException;
-import java.util.Optional;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.io.File;
 
 /**
- * The HelloWorld program implements an application that
- * simply displays "Hello World!" to the standard output.
- *
- * @author  Boda Zsolt
- * @version SNAPSHOT-1
- * @since   2021-05-06
+ * Maga az alkalmazás modell és vezérlő rétege.
+ * Valamint a folyamata irányító eljárásokat idító osztály.
  */
+@Data
 public class LightFileSystem {
-    public static void main(String[] args) {
-        System.out.println("Hello world!!!");
-        Logger.info("We are running boys!!!!");
+    FileSystem filesystem;
+    ApplicationStateManager stateManager;
 
-        /*
-        Application app = new Application();
+    /**
+     * Konfig fájl neve amiben elmentjük a fylesystem adatait
+     */
+    public final String CONFIG_FILE_NAME = "filesystem.json";
+    /**
+     * Object mapper, ami a json írásában és olvasásában segít
+     */
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new JavaTimeModule());
 
-        try {
-            app.loadConfigFile();
-            System.out.println(app.getFilesystem());
-            User asd = app.getFilesystem().createUser("JANIVOKAZTCSOH");
-            app.saveConfigFile();
+    /**
+     * Megkeresi a config fájlt
+     *
+     * @return Fájl útvonala
+     */
+    public File getConfigFile() throws IOException {
+        String homeDir = System.getProperty("user.home");
+        return new File( homeDir + File.separator + CONFIG_FILE_NAME);
+    }
 
-        } catch (IOException e){
-            System.out.println("HIBA");
-            System.out.println(e);
+    /**
+     * Leellenőrzni, hogy a config fájl létezik-e.
+     *
+     * @return Igaz, ha létezik a config fájl.
+     */
+    public boolean isConfigFileExists() throws IOException {
+        return this.getConfigFile().exists();
+    }
+
+    /**
+     * Betölti a config fájlból az adatokat.
+     */
+    public void loadConfigFile() throws IOException{
+        Logger.info("[APPLICATION] Trying to load config file...");
+
+        if(this.isConfigFileExists()){
+            Logger.info("[APPLICATION] Loading config from user's config file.");
+            this.filesystem = OBJECT_MAPPER.readValue(this.getConfigFile(), new TypeReference<FileSystem>() {});
+        } else {
+            Logger.info("[APPLICATION] Loading config from default config file");
+            InputStream is = getClass().getResourceAsStream(CONFIG_FILE_NAME);
+            this.filesystem = OBJECT_MAPPER.readValue(is, new TypeReference<FileSystem>() {});
         }
 
-         */
-        /*
-        FileSystem fs = new FileSystem();
+    }
 
-        User zsolt = fs.createUser("Zsolt");
-        File cv = fs.createFile("MyCv.txt", zsolt);
-
-        cv.setContent("Im good, hire me!");
-
-        fs.getFiles().forEach(file -> System.out.println(file.getContent()));
-
-         */
-
-        /*
-        ApplicationStateManager asm = new ApplicationStateManager();
-
-
-        Optional<User> currentUser = asm.getCurrentUser();
-        System.out.println(currentUser);
-         */
-
-        /*
-        FileSystem fs = new FileSystem();
-        // System.out.println(fs);
-        System.out.println(fs.canCreateUser("Zsolt"));
-        User zsolt = fs.createUser("Zsolt");
-        //System.out.println(fs);
-        //System.out.println(zsolt);
-        System.out.println(fs.canCreateUser("Zsolt"));
-
-         */
-
-        /*
-        User zsolt = new User("Zsolt");
-        User jani = new User("Jani");
-
-        Group coolGyus = new Group("Cool Gyus");
-
-        File file = new File("My Lfie", zsolt);
-        File file2 = new File("Secret", jani);
-
-        zsolt.setGroup(coolGyus);
-
-        file2.addGroup(coolGyus);
-        file2.getAccessChecker().setGroupsAccess(Access.READ);
-
-        Access access = file2.getAccessChecker().getUserAccess(zsolt);
-        System.out.println(access);
-
-         */
-
-
-        /*
-        Access access = file.getAccessChecker().getUserAccess(zsolt);
-
-        System.out.println(access);
-
-        System.out.println("Is protected: " + file.getIsProtected());
-        file.setPassword("asd");
-        System.out.println("Is protected: " + file.getIsProtected());
-
-         */
+    /**
+     * Elmenti a config fájlba az adatokat.
+     */
+    public void saveConfigFile() throws IOException {
+        Logger.info("[APPLICATION] Saving config file.");
+        OBJECT_MAPPER.writeValue(this.getConfigFile(), this.filesystem);
     }
 }
