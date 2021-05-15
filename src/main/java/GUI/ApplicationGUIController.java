@@ -40,11 +40,12 @@ public class ApplicationGUIController implements Initializable {
 
     private LightFileSystem lfs;
 
+    TextInputDialog textInputDialog = new TextInputDialog();
+
     @Override
     public void initialize(URL location, ResourceBundle resources){
+        this.lfs = LightFileSystem.getInstance();
 
-        var lfs = LightFileSystem.getInstance();
-        this.lfs = lfs;
         var nameOfFiles = lfs
                 .getFilesystem()
                 .getFiles()
@@ -69,15 +70,6 @@ public class ApplicationGUIController implements Initializable {
             this.update();
         });
 
-        //ObservableValue<Optional<File>> obsCurrentFile = new ReadOnlyObjectWrapper<>(lfs.getStateManager().getCurrentFile());
-
-        /*
-        fileContentArea.disableProperty().bind(
-                Bindings.createBooleanBinding(()->lfs.getStateManager().getCurrentFile().isEmpty()),
-                obsCurrentFile
-        );
-
-         */
         fileContentArea.setWrapText(true);
         fileContentArea.textProperty().addListener((observable, oldValue, newValue) -> {
             var currentFIle = lfs.getStateManager().getCurrentFile();
@@ -85,6 +77,10 @@ public class ApplicationGUIController implements Initializable {
                 currentFIle.get().setContent(fileContentArea.getText());
             }
         });
+
+        this.textInputDialog.setHeaderText("Password is required!");
+
+        this.update();
 }
 
     public void onUserSelect(ActionEvent event){
@@ -96,6 +92,8 @@ public class ApplicationGUIController implements Initializable {
     public void update(){
         fileContentArea.setText(this.getTextAreaContent());
         fileContentArea.setDisable(this.isTextAreaDisabled());
+
+        this.getFilePassword();
     }
 
     public Boolean isTextAreaDisabled(){
@@ -105,6 +103,11 @@ public class ApplicationGUIController implements Initializable {
         if(currentFile.isEmpty() || currentUser.isEmpty()){
             return true;
         }
+
+        if(currentFile.get().getIsProtected()){
+            return true;
+        }
+
         var access = AccessChecker.getUserAccess(currentFile.get(), currentUser.get());
         return List.of(Access.NONE, Access.WRITE).contains(access);
     }
@@ -116,11 +119,31 @@ public class ApplicationGUIController implements Initializable {
         if(currentFile.isEmpty() || currentUser.isEmpty()){
             return "Choose a file to display!";
         }
+
+        if(currentFile.get().getIsProtected()){
+            return "This file requires the password to access!";
+        }
+
         var access = AccessChecker.getUserAccess(currentFile.get(), currentUser.get());
-        System.out.println(access);
+
         if(List.of(Access.NONE, Access.WRITE).contains(access)){
             return "You do not have permission to access this file!";
         }
         return currentFile.get().getContent();
+    }
+
+    public void getFilePassword(){
+        var currentFile = lfs.getStateManager().getCurrentFile();
+        if(currentFile.isPresent() && currentFile.get().getIsProtected()){
+            this.textInputDialog.showAndWait();
+
+            if(AccessChecker.isPasswordValid(currentFile.get(), this.textInputDialog.getEditor().getText())){
+                this.fileContentArea.setText(currentFile.get().getContent());
+                this.fileContentArea.setDisable(false);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.show();
+            }
+        }
     }
 }
