@@ -73,8 +73,9 @@ public class LightFileSystem {
         Logger.info("[APPLICATION] Trying to load config file...");
 
         if(this.isConfigFileExists()){
-            Logger.info("[APPLICATION] Loading config from user's config file.");
-            this.filesystem = OBJECT_MAPPER.readValue(this.getConfigFile(), new TypeReference<FileSystem>() {});
+            var configFile = this.getConfigFile();
+            Logger.info(String.format("[APPLICATION] Loading config from user's config file from %s", configFile.getAbsolutePath()));
+            this.filesystem = OBJECT_MAPPER.readValue(configFile, new TypeReference<FileSystem>() {});
         } else {
             Logger.info("[APPLICATION] Loading config from default config file");
             InputStream is = getClass().getResourceAsStream(CONFIG_FILE_NAME);
@@ -97,7 +98,8 @@ public class LightFileSystem {
      * Elmenti a config fájlba az adatokat.
      */
     public void saveConfigFile() throws IOException {
-        Logger.info("[APPLICATION] Saving config file.");
-        OBJECT_MAPPER.writeValue(this.getConfigFile(), this.filesystem);
+        var configFile = this.getConfigFile();
+        Logger.info(String.format("[APPLICATION] Saving config file to %s", configFile.getAbsolutePath()));
+        // OBJECT_MAPPER.writeValue(configFile, this.filesystem);
     }
 }

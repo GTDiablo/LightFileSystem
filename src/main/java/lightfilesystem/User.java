@@ -19,8 +19,12 @@ public class User {
         return String.format("User(%s)", this.name);
     }
 
-    public boolean equals(User other){
-        return this.name.equals(other.name);
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof User && this.name.equals(((User) other).getName())){
+            return true;
+        }
+        return false;
     }
 
     /**

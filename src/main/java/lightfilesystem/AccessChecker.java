@@ -17,9 +17,21 @@ public class AccessChecker {
         if(file.getAuthor().equals(user)){
             return Access.ALL;
         }
+
         if(file.getGroups().contains(user.getGroup())){
             return file.getGroupsAccess();
         }
         return file.getOtherAccess();
+    }
+
+    /**
+     * Ellenőrizzük le, hogy a megadd jelszó megegyezik a fájl jelszavával.
+     *
+     * @param file Az a fájl amitől a hozzáférést kérjük le.
+     * @param password Felhasználótól kapott jelszó.
+     * @return Igaz, ha a jelszavak megegyeznek.
+     */
+    public static Boolean isPasswordValid(File file, String password){
+        return password.equals(file.getPassword());
     }
 }

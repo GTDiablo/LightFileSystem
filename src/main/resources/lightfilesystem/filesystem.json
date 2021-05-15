@@ -17,6 +17,55 @@
         },
         {
           "name":"moderators"
+        }
+      ],
+      "password":"",
+      "groupsAccess":"ALL",
+      "otherAccess":"NONE"
+    },
+    {
+      "title":"Secret.txt",
+      "created":"",
+      "updated":"",
+      "content":"I am the best!",
+      "author":{
+        "name":"admin",
+        "group":{
+          "name":"root"
+        }
+      },
+      "groups":[
+        {
+          "name":"root"
+        },
+        {
+          "name":"moderators"
+        },
+        {
+          "name":"guests"
+        }
+      ],
+      "password":"test",
+      "groupsAccess":"ALL",
+      "otherAccess":"NONE"
+    },
+    {
+      "title":"Everyone.txt",
+      "created":"",
+      "updated":"",
+      "content":"You are awesome",
+      "author":{
+        "name":"admin",
+        "group":{
+          "name":"root"
+        }
+      },
+      "groups":[
+        {
+          "name":"root"
+        },
+        {
+          "name":"moderators"
         },
         {
           "name":"guests"
@@ -24,7 +73,7 @@
       ],
       "password":"",
       "groupsAccess":"ALL",
-      "otherAccess":"NONE"
+      "otherAccess":"ALL"
     }
   ],
   "groups":[
@@ -43,6 +92,12 @@
       "name":"admin",
       "group":{
         "name":"root"
+      }
+    },
+    {
+      "name":"student",
+      "group":{
+        "name":"guests"
       }
     }
   ]

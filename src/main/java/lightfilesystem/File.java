@@ -31,6 +31,14 @@ public class File {
         return this.title.equals(other.getTitle());
     }
 
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof File && this.title.equals(((File) other).getTitle())){
+            return true;
+        }
+        return false;
+    }
+
     public File(){}
     public File(String title, User author) {
         this.title = title;

@@ -42,11 +42,6 @@ public class ApplicationGUIController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-        /*
-        myListView.setItems(stringList);
-        //myListView.setCellFactory(stringListView -> new StringListViewCell());
-
-         */
 
         var lfs = LightFileSystem.getInstance();
         this.lfs = lfs;
@@ -68,13 +63,10 @@ public class ApplicationGUIController implements Initializable {
 
         myListView.getItems().addAll(nameOfFiles);
 
-        myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                var selectedFile = lfs.getFilesystem().getFile(myListView.getSelectionModel().getSelectedItem());
-                lfs.getStateManager().setCurrentFile(selectedFile);
-                fileContentArea.setText(selectedFile.get().getContent());
-            }
+        myListView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> {
+            var selectedFile = lfs.getFilesystem().getFile(myListView.getSelectionModel().getSelectedItem());
+            lfs.getStateManager().setCurrentFile(selectedFile);
+            this.update();
         });
 
         //ObservableValue<Optional<File>> obsCurrentFile = new ReadOnlyObjectWrapper<>(lfs.getStateManager().getCurrentFile());
@@ -87,13 +79,10 @@ public class ApplicationGUIController implements Initializable {
 
          */
         fileContentArea.setWrapText(true);
-        fileContentArea.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
-                var currentFIle = lfs.getStateManager().getCurrentFile();
-                if(currentFIle.isPresent()){
-                    currentFIle.get().setContent(fileContentArea.getText());
-                }
+        fileContentArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            var currentFIle = lfs.getStateManager().getCurrentFile();
+            if(!this.isTextAreaDisabled() && currentFIle.isPresent()){
+                currentFIle.get().setContent(fileContentArea.getText());
             }
         });
 }
@@ -101,22 +90,15 @@ public class ApplicationGUIController implements Initializable {
     public void onUserSelect(ActionEvent event){
         User selectedUser = currentUserSelector.getValue();
         this.lfs.getStateManager().setCurrentUser(Optional.of(selectedUser));
-        System.out.println(selectedUser.getName());
+        this.update();
     }
 
-    public void pressing(ActionEvent event) {
-        var currentUser = LightFileSystem
-                .getInstance()
-                .getStateManager()
-                .getCurrentUser()
-                .get();
-
-        System.out.println(currentUser.getName());
-        myLabel.setText(currentUser.getName());
+    public void update(){
+        fileContentArea.setText(this.getTextAreaContent());
+        fileContentArea.setDisable(this.isTextAreaDisabled());
     }
 
     public Boolean isTextAreaDisabled(){
-        var lfs = LightFileSystem.getInstance();
         var currentUser = lfs.getStateManager().getCurrentUser();
         var currentFile = lfs.getStateManager().getCurrentFile();
 
@@ -128,22 +110,17 @@ public class ApplicationGUIController implements Initializable {
     }
 
     public String getTextAreaContent() {
-        var lfs = LightFileSystem.getInstance();
         var currentUser = lfs.getStateManager().getCurrentUser();
         var currentFile = lfs.getStateManager().getCurrentFile();
 
         if(currentFile.isEmpty() || currentUser.isEmpty()){
-            return "Choose a a file to display!";
+            return "Choose a file to display!";
         }
         var access = AccessChecker.getUserAccess(currentFile.get(), currentUser.get());
-
+        System.out.println(access);
         if(List.of(Access.NONE, Access.WRITE).contains(access)){
             return "You do not have permission to access this file!";
         }
         return currentFile.get().getContent();
-    }
-
-    public void changeCurrentUser(User user){
-        this.lfs.getStateManager().setCurrentUser(Optional.of(user));
     }
 }

@@ -19,8 +19,12 @@ public class Group {
         return String.format("Group(name=%s)", this.name);
     }
 
-    public boolean equals(Group other){
-        return other.getName().equals(this.name);
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof Group && ((Group) other).getName().equals(this.getName())){
+            return true;
+        }
+        return false;
     }
 
     /**
