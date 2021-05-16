@@ -61,7 +61,7 @@ public class LightFileSystem {
      *
      * @return Igaz, ha létezik a config fájl.
      */
-    public boolean isConfigFileExists() throws IOException {
+    public boolean isConfigFileExists() {
         return this.getConfigFile().exists();
     }
 
@@ -101,6 +101,6 @@ public class LightFileSystem {
     public void saveConfigFile() throws IOException {
         var configFile = this.getConfigFile();
         Logger.info(String.format("[APPLICATION] Saving config file to %s", configFile.getAbsolutePath()));
-        // OBJECT_MAPPER.writeValue(configFile, this.filesystem);
+        OBJECT_MAPPER.writeValue(configFile, this.filesystem);
     }
 }

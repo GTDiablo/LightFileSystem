@@ -193,6 +193,18 @@ public class ApplicationGUIController implements Initializable {
 
         this.textInputDialog.setHeaderText("Password is required!");
 
+        currentFileGroupList.setOnMouseClicked(event ->{
+            var selectedGroups = currentFileGroupList.getSelectionModel().getSelectedItems();
+            var currentFile = lfs.getStateManager().getCurrentFile();
+            if(currentFile.isPresent()){
+                currentFile.get().getGroups().clear();
+                selectedGroups.forEach(groupName -> {
+                    var selectedGroup = lfs.getFilesystem().getGroup(groupName);
+                    currentFile.get().getGroups().add(selectedGroup.get());
+                });
+            }
+        });
+
         this.update();
 }
 
@@ -247,7 +259,7 @@ public class ApplicationGUIController implements Initializable {
                 lfs.getFilesystem().getGroups().stream().map(Group::getName).collect(Collectors.toList())
             );
 
-            currentFile.get().getGroups().stream().forEach(group -> {
+            currentFile.get().getGroups().forEach(group -> {
                 var index = this.currentFileGroupList.getItems().indexOf(group.getName());
                 this.currentFileGroupList.getSelectionModel().select(index);
                 this.currentFileGroupList.getSelectionModel().select(index);
@@ -354,9 +366,7 @@ public class ApplicationGUIController implements Initializable {
             }
             var access = AccessChecker.getUserAccess(currentFile.get(), currentUser.get());
 
-            if(List.of(Access.READ, Access.NONE).contains(access)){
-                return true;
-            }
+            return List.of(Access.READ, Access.NONE).contains(access);
         }
         return false;
     }

@@ -16,9 +16,9 @@ import org.tinylog.Logger;
  */
 @Data
 public class FileSystem {
-    List<File> files = new ArrayList<File>();
-    List<Group> groups = new ArrayList<Group>();
-    List<User> users = new ArrayList<User>();
+    List<File> files = new ArrayList<>();
+    List<Group> groups = new ArrayList<>();
+    List<User> users = new ArrayList<>();
 
     @Override
     public String toString(){
@@ -136,6 +136,6 @@ public class FileSystem {
      */
     @JsonIgnore
     public Optional<Group> getGroup(String name){
-        return this.getGroups().stream().filter(group -> group.equals(name)).findFirst();
+        return this.groups.stream().filter(group -> group.getName().equals(name)).findFirst();
     }
 }
