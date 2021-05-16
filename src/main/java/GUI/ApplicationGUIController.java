@@ -1,13 +1,5 @@
 package GUI;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.event.ActionEvent;
@@ -128,7 +120,8 @@ public class ApplicationGUIController implements Initializable {
             var groupName = textInputDialog.getEditor().getText();
 
             if(!groupName.equals("") && lfs.getFilesystem().canCreateGroup(groupName)){
-                lfs.getFilesystem().createGroup(groupName);
+                var createdGroup = lfs.getFilesystem().createGroup(groupName);
+                this.currentUserGroupSelector.getItems().add(createdGroup);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("No name provided or group already exists");
