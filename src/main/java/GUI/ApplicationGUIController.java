@@ -246,6 +246,12 @@ public class ApplicationGUIController implements Initializable {
             this.currentFileGroupList.getItems().setAll(
                 lfs.getFilesystem().getGroups().stream().map(Group::getName).collect(Collectors.toList())
             );
+
+            currentFile.get().getGroups().stream().forEach(group -> {
+                var index = this.currentFileGroupList.getItems().indexOf(group.getName());
+                this.currentFileGroupList.getSelectionModel().select(index);
+                this.currentFileGroupList.getSelectionModel().select(index);
+            });
         }
 
         this.getFilePassword();
@@ -307,22 +313,6 @@ public class ApplicationGUIController implements Initializable {
         var currentFile = lfs.getStateManager().getCurrentFile();
         if(currentFile.isPresent() && currentFile.get().getIsProtected()){
             this.textInputDialog.showAndWait();
-            //this.textInputDialog.getOnCloseRequest();
-            /*
-            .ifPresent(response -> {
-                System.out.println(response);
-                if(response == "Dialog.ok.button"){
-                    if(AccessChecker.isPasswordValid(currentFile.get(), this.textInputDialog.getEditor().getText())){
-                        this.fileContentArea.setText(currentFile.get().getContent());
-                        this.fileContentArea.setDisable(false);
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.show();
-                    }
-                }
-            });
-             */
-
 
             if(AccessChecker.isPasswordValid(currentFile.get(), this.textInputDialog.getEditor().getText())){
                 this.fileContentArea.setText(currentFile.get().getContent());
@@ -334,6 +324,7 @@ public class ApplicationGUIController implements Initializable {
                 this.currentFileGroupList.setDisable(false);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Provided password is wrong!");
                 alert.show();
             }
 
