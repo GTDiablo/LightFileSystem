@@ -229,6 +229,10 @@ public class ApplicationGUIController implements Initializable {
     public void update(){
         this.updateFileRelatedGUI();
         this.updateCurrentFileSetPasswordSection();
+        this.currentFileOtherAccessChoiceBox.setDisable(this.isAccessSelectorDisabled());
+        this.currentFileGroupAccessChoiceBox.setDisable(this.isAccessSelectorDisabled());
+        this.setCurrentFilePasswordFiled.setDisable(this.isAccessSelectorDisabled());
+        this.setCurrentFilePasswordButton.setDisable(this.isAccessSelectorDisabled());
         this.getFilePassword();
     }
 
@@ -308,6 +312,10 @@ public class ApplicationGUIController implements Initializable {
             if(AccessChecker.isPasswordValid(currentFile.get(), this.textInputDialog.getEditor().getText())){
                 this.fileContentArea.setText(currentFile.get().getContent());
                 this.fileContentArea.setDisable(false);
+                this.currentFileOtherAccessChoiceBox.setDisable(false);
+                this.currentFileGroupAccessChoiceBox.setDisable(false);
+                this.setCurrentFilePasswordFiled.setDisable(false);
+                this.setCurrentFilePasswordButton.setDisable(false);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.show();
@@ -327,5 +335,22 @@ public class ApplicationGUIController implements Initializable {
             this.currentFileOtherAccessChoiceBox.setValue(currentFile.get().getOtherAccess());
             this.setCurrentFilePasswordFiled.setText(currentFile.get().getPassword());
         }
+    }
+
+    public boolean isAccessSelectorDisabled() {
+        var currentUser = lfs.getStateManager().getCurrentUser();
+        var currentFile = lfs.getStateManager().getCurrentFile();
+
+        if(currentFile.isPresent() && currentUser.isPresent()){
+            if(currentFile.get().getIsProtected()){
+                return true;
+            }
+            var access = AccessChecker.getUserAccess(currentFile.get(), currentUser.get());
+
+            if(List.of(Access.READ, Access.NONE).contains(access)){
+                return true;
+            }
+        }
+        return false;
     }
 }
