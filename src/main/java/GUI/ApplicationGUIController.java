@@ -23,8 +23,19 @@ import java.util.stream.Collectors;
 public class ApplicationGUIController implements Initializable {
 
     @FXML
-    private Label myLabel;
+    private Label currentFileAuthorLabel;
 
+    @FXML
+    private Label currentFileUpdatedLabel;
+
+    @FXML
+    private Label currentFileCreatedLabel;
+
+    @FXML
+    private ChoiceBox<Access> currentFileGroupAccessChoiceBox;
+
+    @FXML
+    private ChoiceBox<Access> currentFileOtherAccessChoiceBox;
 
     @FXML
     private ListView<String> myListView;
@@ -95,6 +106,7 @@ public class ApplicationGUIController implements Initializable {
     public void update(){
         fileContentArea.setText(this.getTextAreaContent());
         fileContentArea.setDisable(this.isTextAreaDisabled());
+        this.setCurrentFileInformation();
 
         this.getFilePassword();
     }
@@ -140,6 +152,22 @@ public class ApplicationGUIController implements Initializable {
         if(currentFile.isPresent() && currentFile.get().getIsProtected()){
             this.textInputDialog.showAndWait();
 
+            /*
+            .ifPresent(response -> {
+                System.out.println(response);
+                if(response == "Dialog.ok.button"){
+                    if(AccessChecker.isPasswordValid(currentFile.get(), this.textInputDialog.getEditor().getText())){
+                        this.fileContentArea.setText(currentFile.get().getContent());
+                        this.fileContentArea.setDisable(false);
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.show();
+                    }
+                }
+            });
+             */
+
+
             if(AccessChecker.isPasswordValid(currentFile.get(), this.textInputDialog.getEditor().getText())){
                 this.fileContentArea.setText(currentFile.get().getContent());
                 this.fileContentArea.setDisable(false);
@@ -147,6 +175,17 @@ public class ApplicationGUIController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.show();
             }
+
+
+        }
+    }
+
+    public void setCurrentFileInformation(){
+        var currentFile = lfs.getStateManager().getCurrentFile();
+        if(currentFile.isPresent()){
+            this.currentFileAuthorLabel.setText(currentFile.get().getAuthor().getName());
+            this.currentFileCreatedLabel.setText(currentFile.get().getCreated().toString());
+            this.currentFileUpdatedLabel.setText(currentFile.get().getUpdated().toString());
         }
     }
 }

@@ -9,13 +9,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ApplicationGUIController">
+<AnchorPane prefHeight="579.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ApplicationGUIController">
    <children>
       <Label fx:id="myLabel" layoutX="426.0" layoutY="14.0" text="Current User:" />
-      <ListView fx:id="myListView" layoutY="39.0" prefHeight="361.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="39.0" />
+      <ListView fx:id="myListView" layoutY="39.0" prefHeight="399.0" prefWidth="200.0" AnchorPane.bottomAnchor="141.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="39.0" />
       <ChoiceBox fx:id="currentUserSelector" layoutX="426.0" layoutY="32.0" prefWidth="150.0" />
-      <TextArea fx:id="fileContentArea" layoutX="202.0" layoutY="2.0" prefHeight="394.0" prefWidth="211.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="204.0" AnchorPane.topAnchor="4.0" />
+      <TextArea fx:id="fileContentArea" layoutX="202.0" layoutY="2.0" prefHeight="434.0" prefWidth="211.0" AnchorPane.bottomAnchor="141.0" AnchorPane.leftAnchor="204.0" AnchorPane.topAnchor="4.0" />
       <CheckBox fx:id="filterCheckbox" layoutX="22.0" layoutY="14.0" mnemonicParsing="false" text="Show only related files" />
       <Button fx:id="editCurrentUserButton" layoutX="426.0" layoutY="64.0" mnemonicParsing="false" text="Edit Current User" />
+      <Label layoutX="22.0" layoutY="461.0" text="Created:" />
+      <Label layoutX="22.0" layoutY="490.0" text="Updated:" />
+      <Label fx:id="currentFileCreatedLabel" layoutX="79.0" layoutY="461.0" text="Label" />
+      <Label fx:id="currentFileUpdatedLabel" layoutX="79.0" layoutY="490.0" text="Label" />
+      <Label layoutX="163.0" layoutY="461.0" text="Group access:" />
+      <Label layoutX="163.0" layoutY="498.0" text="Other access:" />
+      <ChoiceBox fx:id="currentFileGroupAccessChoiceBox" layoutX="252.0" layoutY="457.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="currentFileOtherAccessChoiceBox" layoutX="252.0" layoutY="494.0" prefWidth="150.0" />
+      <Label layoutX="433.0" layoutY="461.0" text="Author:" />
+      <Label fx:id="currentFileAuthorLabel" layoutX="487.0" layoutY="461.0" text="Label" />
    </children>
 </AnchorPane>

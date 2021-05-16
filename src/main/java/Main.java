@@ -1,3 +1,4 @@
+import lightfilesystem.LightFileSystem;
 import org.tinylog.Logger;
 
 import java.io.IOException;
@@ -20,8 +21,8 @@ public class Main {
 
         ApplicationGUI.main(args);
 
-
         /*
+
         try {
             var lfs = LightFileSystem.getInstance();
             lfs.init();
@@ -33,6 +34,8 @@ public class Main {
             var a = lfs.getFilesystem().createUser("Zsolt");
             var b = lfs.getFilesystem().createUser("Zsolt");
             var c = lfs.getFilesystem().createUser("Zsolt");
+
+            var file = lfs.getFilesystem().createFile("MyFile.txt", zsolt);
 
             var lfs2 = LightFileSystem.getInstance();
             System.out.println(lfs2.getFilesystem());
@@ -46,6 +49,8 @@ public class Main {
         }
 
          */
+
+
 
 
 
