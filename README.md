@@ -1,7 +1,8 @@
 # Light Filesystem
 
-##### *Beadandó: Szoftverfejlesztés Labor*
-##### *Készítette: Boda Zsolt*
+***Beadandó: Szoftverfejlesztés Labor***
+
+***Készítette: Boda Zsolt***
 
 ## Rövid összegzés
 

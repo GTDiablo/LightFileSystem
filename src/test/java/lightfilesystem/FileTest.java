@@ -39,4 +39,11 @@ public class FileTest {
         file1.setPassword("Strong password");
         Assertions.assertTrue(file1.getIsProtected());
     }
+
+    @Test
+    @DisplayName("Testing file updated")
+    public void testFileUpdated(){
+        file1.setContent("Hello there");
+        Assertions.assertFalse(file1.getCreated().equals(file1.getUpdated()));
+    }
 }
