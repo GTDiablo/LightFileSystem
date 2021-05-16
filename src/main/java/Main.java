@@ -1,8 +1,9 @@
-package lightfilesystem;
 import org.tinylog.Logger;
 
 import java.io.IOException;
 import java.util.Optional;
+
+import GUI.ApplicationGUI;
 
 /**
  * The HelloWorld program implements an application that
@@ -13,9 +14,11 @@ import java.util.Optional;
  * @since   2021-05-06
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("Hello world!!!");
         Logger.info("We are running boys!!!!");
+
+        ApplicationGUI.main(args);
 
 
         /*

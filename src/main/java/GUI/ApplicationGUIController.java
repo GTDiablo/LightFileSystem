@@ -38,6 +38,9 @@ public class ApplicationGUIController implements Initializable {
     @FXML
     private CheckBox filterCheckbox;
 
+    @FXML
+    private Button editCurrentUserButton;
+
     private LightFileSystem lfs;
 
     TextInputDialog textInputDialog = new TextInputDialog();

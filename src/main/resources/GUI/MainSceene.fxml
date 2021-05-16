@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -10,10 +11,11 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ApplicationGUIController">
    <children>
-      <Label fx:id="myLabel" layoutX="468.0" layoutY="150.0" text="Hello World" />
-      <ListView fx:id="myListView" prefHeight="400.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <ChoiceBox fx:id="currentUserSelector" layoutX="432.0" layoutY="14.0" prefWidth="150.0" />
+      <Label fx:id="myLabel" layoutX="426.0" layoutY="14.0" text="Current User:" />
+      <ListView fx:id="myListView" layoutY="39.0" prefHeight="361.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="39.0" />
+      <ChoiceBox fx:id="currentUserSelector" layoutX="426.0" layoutY="32.0" prefWidth="150.0" />
       <TextArea fx:id="fileContentArea" layoutX="202.0" layoutY="2.0" prefHeight="394.0" prefWidth="211.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="204.0" AnchorPane.topAnchor="4.0" />
-      <CheckBox fx:id="filterCheckbox" layoutX="429.0" layoutY="72.0" mnemonicParsing="false" text="Filter mine" />
+      <CheckBox fx:id="filterCheckbox" layoutX="22.0" layoutY="14.0" mnemonicParsing="false" text="Show only related files" />
+      <Button fx:id="editCurrentUserButton" layoutX="426.0" layoutY="64.0" mnemonicParsing="false" text="Edit Current User" />
    </children>
 </AnchorPane>
