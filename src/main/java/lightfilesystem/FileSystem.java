@@ -126,4 +126,16 @@ public class FileSystem {
     public Optional<File> getFile(String title){
         return this.files.stream().filter(file -> file.getTitle().equals(title)).findFirst();
     }
+
+
+    /**
+     * Visszaadja a kért csoportot a neve alapján.
+     *
+     * @param name A csoport neve.
+     * @return Kért csoport.
+     */
+    @JsonIgnore
+    public Optional<Group> getGroup(String name){
+        return this.getGroups().stream().filter(group -> group.equals(name)).findFirst();
+    }
 }

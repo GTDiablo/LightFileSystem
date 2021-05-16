@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -10,31 +9,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="1066.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ApplicationGUIController">
+<AnchorPane prefHeight="400.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ApplicationGUIController">
    <children>
       <Label fx:id="myLabel" layoutX="426.0" layoutY="14.0" text="Current User:" />
-      <ListView fx:id="myListView" layoutY="39.0" prefHeight="363.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="39.0" />
+      <ListView fx:id="myListView" layoutY="39.0" prefHeight="363.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <ChoiceBox fx:id="currentUserSelector" layoutX="426.0" layoutY="32.0" prefWidth="150.0" />
       <TextArea fx:id="fileContentArea" layoutX="202.0" layoutY="2.0" prefHeight="434.0" prefWidth="211.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="204.0" AnchorPane.topAnchor="4.0" />
-      <CheckBox fx:id="filterCheckbox" layoutX="22.0" layoutY="14.0" mnemonicParsing="false" text="Show only related files" />
-      <Button fx:id="editCurrentUserButton" layoutX="426.0" layoutY="64.0" mnemonicParsing="false" text="Edit Current User" />
-      <Label layoutX="631.0" layoutY="82.0" text="Created:" />
-      <Label layoutX="633.0" layoutY="121.0" text="Updated:" />
-      <Label fx:id="currentFileCreatedLabel" layoutX="688.0" layoutY="82.0" text="Label" />
-      <Label fx:id="currentFileUpdatedLabel" layoutX="690.0" layoutY="121.0" text="Label" />
-      <Label layoutX="634.0" layoutY="160.0" text="Group access:" />
-      <Label layoutX="634.0" layoutY="205.0" text="Other access:" />
-      <ChoiceBox fx:id="currentFileGroupAccessChoiceBox" layoutX="723.0" layoutY="156.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="currentFileOtherAccessChoiceBox" layoutX="723.0" layoutY="201.0" prefWidth="150.0" />
-      <Label layoutX="634.0" layoutY="45.0" text="Author:" />
-      <Label fx:id="currentFileAuthorLabel" layoutX="688.0" layoutY="45.0" text="Label" />
+      <Label layoutX="630.0" layoutY="68.0" text="Created:" />
+      <Label layoutX="630.0" layoutY="89.0" text="Updated:" />
+      <Label fx:id="currentFileCreatedLabel" layoutX="687.0" layoutY="68.0" />
+      <Label fx:id="currentFileUpdatedLabel" layoutX="687.0" layoutY="89.0" />
+      <Label layoutX="630.0" layoutY="113.0" text="Group access:" />
+      <Label layoutX="632.0" layoutY="164.0" text="Other access:" />
+      <ChoiceBox fx:id="currentFileGroupAccessChoiceBox" layoutX="630.0" layoutY="130.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="currentFileOtherAccessChoiceBox" layoutX="630.0" layoutY="181.0" prefWidth="150.0" />
+      <Label layoutX="632.0" layoutY="48.0" text="Author:" />
+      <Label fx:id="currentFileAuthorLabel" layoutX="686.0" layoutY="48.0" />
       <Label layoutX="631.0" layoutY="14.0" text="Current file information:" />
-      <Label layoutX="639.0" layoutY="237.0" text="Groups:" />
-      <Label layoutX="555.0" layoutY="324.0" text="Password:" />
-      <PasswordField fx:id="setCurrentFilePasswordFiled" layoutX="620.0" layoutY="320.0" />
-      <Button fx:id="setCurrentFilePasswordButton" layoutX="785.0" layoutY="320.0" mnemonicParsing="false" text="set password" />
-      <Button fx:id="addNewUserButton" layoutX="426.0" layoutY="125.0" mnemonicParsing="false" text="Add new user" />
-      <Button fx:id="addNewFileButton" layoutX="426.0" layoutY="156.0" mnemonicParsing="false" text="Add new file" />
-      <Button fx:id="addNewGroupButton" layoutX="426.0" layoutY="188.0" mnemonicParsing="false" text="Add new group" />
+      <Label layoutX="631.0" layoutY="273.0" text="Groups:" />
+      <Label layoutX="630.0" layoutY="221.0" text="Password:" />
+      <PasswordField fx:id="setCurrentFilePasswordFiled" layoutX="630.0" layoutY="242.0" />
+      <Button fx:id="setCurrentFilePasswordButton" layoutX="783.0" layoutY="242.0" mnemonicParsing="false" text="set password" />
+      <Button fx:id="addNewUserButton" layoutX="426.0" layoutY="297.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Add new user" textAlignment="CENTER" />
+      <Button fx:id="addNewFileButton" layoutX="426.0" layoutY="328.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Add new file" />
+      <Button fx:id="addNewGroupButton" layoutX="426.0" layoutY="360.0" mnemonicParsing="false" text="Add new group" />
+      <ChoiceBox fx:id="currentUserGroupSelector" layoutX="426.0" layoutY="81.0" prefWidth="150.0" />
+      <Label layoutX="426.0" layoutY="64.0" text="Group of current user:" />
    </children>
 </AnchorPane>

@@ -48,10 +48,7 @@ public class ApplicationGUIController implements Initializable {
     private ChoiceBox<User> currentUserSelector;
 
     @FXML
-    private CheckBox filterCheckbox;
-
-    @FXML
-    private Button editCurrentUserButton;
+    private ChoiceBox<Group> currentUserGroupSelector;
 
     @FXML
     private Button setCurrentFilePasswordButton;
@@ -93,9 +90,13 @@ public class ApplicationGUIController implements Initializable {
             if(!username.equals("") && lfs.getFilesystem().canCreateUser(username)){
                 var createdUser = lfs.getFilesystem().createUser(username);
                 lfs.getStateManager().setCurrentUser(Optional.of(createdUser));
+                this.currentUserSelector.setValue(createdUser);
+                this.currentUserSelector.getItems().add(createdUser);
                 this.update();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("No name provided or user already exists");
+                alert.setHeaderText("Could not create user!");
                 alert.show();
             }
         });
@@ -113,6 +114,8 @@ public class ApplicationGUIController implements Initializable {
                 this.myListView.getItems().add(createdFile.getTitle());
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("No name provided or file already exists");
+                alert.setHeaderText("Could not create file!");
                 alert.show();
             }
         });
@@ -128,6 +131,8 @@ public class ApplicationGUIController implements Initializable {
                 lfs.getFilesystem().createGroup(groupName);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("No name provided or group already exists");
+                alert.setHeaderText("Could not create group!");
                 alert.show();
             }
         });
@@ -160,6 +165,12 @@ public class ApplicationGUIController implements Initializable {
         currentFileOtherAccessChoiceBox.setOnAction(this::onOtherAccessSelect);
         currentFileGroupAccessChoiceBox.setOnAction(this::onGroupAccessSelect);
 
+
+        currentUserGroupSelector.setConverter(new GroupStringConverter());
+        currentUserGroupSelector.getItems().addAll(lfs.getFilesystem().getGroups());
+        currentUserGroupSelector.setValue(lfs.getStateManager().getCurrentUser().get().getGroup());
+        currentUserGroupSelector.setOnAction(this::onSetCurrentUserGroup);
+
         currentUserSelector.setConverter(new UserStringConverter());
         currentUserSelector.getItems().addAll(lfs.getFilesystem().getUsers());
         currentUserSelector.setValue(lfs.getStateManager().getCurrentUser().get());
@@ -186,6 +197,13 @@ public class ApplicationGUIController implements Initializable {
         this.update();
 }
 
+    private void onSetCurrentUserGroup(ActionEvent actionEvent) {
+        var selectedGroup = this.currentUserGroupSelector.getValue();
+        var currentUser = lfs.getStateManager().getCurrentUser();
+        currentUser.ifPresent(user -> user.setGroup(selectedGroup));
+        this.update();
+    }
+
     private void onGroupAccessSelect(ActionEvent actionEvent) {
         Access access = currentFileGroupAccessChoiceBox.getValue();
         var currentFile = lfs.getStateManager().getCurrentFile();
@@ -205,6 +223,7 @@ public class ApplicationGUIController implements Initializable {
     public void onUserSelect(ActionEvent event){
         User selectedUser = currentUserSelector.getValue();
         this.lfs.getStateManager().setCurrentUser(Optional.of(selectedUser));
+        this.currentUserGroupSelector.setValue(selectedUser.getGroup());
         this.update();
     }
 
