@@ -83,6 +83,23 @@ public class ApplicationGUIController implements Initializable {
                 .map(File::getTitle)
                 .collect(Collectors.toList());
 
+        this.addNewUserButton.setOnAction(e -> {
+            TextInputDialog textInputDialog = new TextInputDialog();
+            textInputDialog.setHeaderText("What is the name of the new user?");
+            textInputDialog.showAndWait();
+
+            var username = textInputDialog.getEditor().getText();
+
+            if(!username.equals("") && lfs.getFilesystem().canCreateUser(username)){
+                var createdUser = lfs.getFilesystem().createUser(username);
+                lfs.getStateManager().setCurrentUser(Optional.of(createdUser));
+                this.update();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.show();
+            }
+        });
+
         this.addNewFileButton.setOnAction(e -> {
             TextInputDialog textInputDialog = new TextInputDialog();
             textInputDialog.setHeaderText("What is the name of the new file?");
