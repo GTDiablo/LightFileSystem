@@ -25,6 +25,7 @@ public class ApplicationGUI extends Application{
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Light File System - linux filesystem emulator");
+        stage.setResizable(false);
         stage.show();
     }
 

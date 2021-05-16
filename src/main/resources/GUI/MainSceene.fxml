@@ -30,10 +30,11 @@
       <Label layoutX="630.0" layoutY="221.0" text="Password:" />
       <PasswordField fx:id="setCurrentFilePasswordFiled" layoutX="630.0" layoutY="242.0" />
       <Button fx:id="setCurrentFilePasswordButton" layoutX="783.0" layoutY="242.0" mnemonicParsing="false" text="set password" />
-      <Button fx:id="addNewUserButton" layoutX="426.0" layoutY="297.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Add new user" textAlignment="CENTER" />
-      <Button fx:id="addNewFileButton" layoutX="426.0" layoutY="328.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Add new file" />
-      <Button fx:id="addNewGroupButton" layoutX="426.0" layoutY="360.0" mnemonicParsing="false" text="Add new group" />
+      <Button fx:id="addNewUserButton" layoutX="426.0" layoutY="393.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Add new user" textAlignment="CENTER" />
+      <Button fx:id="addNewFileButton" layoutX="426.0" layoutY="424.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Add new file" />
+      <Button fx:id="addNewGroupButton" layoutX="426.0" layoutY="456.0" mnemonicParsing="false" text="Add new group" />
       <ChoiceBox fx:id="currentUserGroupSelector" layoutX="426.0" layoutY="81.0" prefWidth="150.0" />
       <Label layoutX="426.0" layoutY="64.0" text="Group of current user:" />
+      <ListView fx:id="currentFileGroupList" layoutX="630.0" layoutY="296.0" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

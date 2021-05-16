@@ -34,6 +34,9 @@ public class ApplicationGUIController implements Initializable {
     private ListView<String> myListView;
 
     @FXML
+    private ListView<String> currentFileGroupList;
+
+    @FXML
     private TextArea fileContentArea;
 
     @FXML
@@ -71,6 +74,8 @@ public class ApplicationGUIController implements Initializable {
                 .stream()
                 .map(File::getTitle)
                 .collect(Collectors.toList());
+
+        this.currentFileGroupList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         this.addNewUserButton.setOnAction(e -> {
             TextInputDialog textInputDialog = new TextInputDialog();
@@ -122,6 +127,7 @@ public class ApplicationGUIController implements Initializable {
             if(!groupName.equals("") && lfs.getFilesystem().canCreateGroup(groupName)){
                 var createdGroup = lfs.getFilesystem().createGroup(groupName);
                 this.currentUserGroupSelector.getItems().add(createdGroup);
+                this.currentFileGroupList.getItems().add(createdGroup.getName());
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("No name provided or group already exists");
@@ -233,6 +239,15 @@ public class ApplicationGUIController implements Initializable {
         this.currentFileGroupAccessChoiceBox.setDisable(this.isAccessSelectorDisabled());
         this.setCurrentFilePasswordFiled.setDisable(this.isAccessSelectorDisabled());
         this.setCurrentFilePasswordButton.setDisable(this.isAccessSelectorDisabled());
+        this.currentFileGroupList.setDisable(this.isAccessSelectorDisabled());
+
+        var currentFile = lfs.getStateManager().getCurrentFile();
+        if(currentFile.isPresent()){
+            this.currentFileGroupList.getItems().setAll(
+                lfs.getFilesystem().getGroups().stream().map(Group::getName).collect(Collectors.toList())
+            );
+        }
+
         this.getFilePassword();
     }
 
@@ -316,6 +331,7 @@ public class ApplicationGUIController implements Initializable {
                 this.currentFileGroupAccessChoiceBox.setDisable(false);
                 this.setCurrentFilePasswordFiled.setDisable(false);
                 this.setCurrentFilePasswordButton.setDisable(false);
+                this.currentFileGroupList.setDisable(false);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.show();
