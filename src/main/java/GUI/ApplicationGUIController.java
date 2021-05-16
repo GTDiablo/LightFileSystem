@@ -83,6 +83,23 @@ public class ApplicationGUIController implements Initializable {
                 .map(File::getTitle)
                 .collect(Collectors.toList());
 
+        this.addNewFileButton.setOnAction(e -> {
+            TextInputDialog textInputDialog = new TextInputDialog();
+            textInputDialog.setHeaderText("What is the name of the new file?");
+            textInputDialog.showAndWait();
+
+            var fileName = textInputDialog.getEditor().getText();
+            var currentUser = lfs.getStateManager().getCurrentUser();
+
+            if(!fileName.equals("") && lfs.getFilesystem().canCreateFile(fileName) && currentUser.isPresent()){
+                var createdFile = lfs.getFilesystem().createFile(fileName, currentUser.get());
+                this.myListView.getItems().add(createdFile.getTitle());
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.show();
+            }
+        });
+
         this.addNewGroupButton.setOnAction(e -> {
             TextInputDialog textInputDialog = new TextInputDialog();
             textInputDialog.setHeaderText("What is the name of the new group?");
