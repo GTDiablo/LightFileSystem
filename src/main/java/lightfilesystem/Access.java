@@ -1,5 +1,4 @@
 package lightfilesystem;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * LightFileSystem-ben 4 féle hozzáférési lehetőség van:

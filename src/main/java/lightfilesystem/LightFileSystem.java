@@ -1,6 +1,5 @@
 package lightfilesystem;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Data;
 import org.tinylog.Logger;
 import java.io.InputStream;
@@ -52,7 +51,7 @@ public class LightFileSystem {
      *
      * @return Fájl útvonala
      */
-    public File getConfigFile() throws IOException {
+    public File getConfigFile() {
         String homeDir = System.getProperty("user.home");
         return new File( homeDir + File.separator + CONFIG_FILE_NAME);
     }
@@ -75,11 +74,13 @@ public class LightFileSystem {
         if(this.isConfigFileExists()){
             var configFile = this.getConfigFile();
             Logger.info(String.format("[APPLICATION] Loading config from user's config file from %s", configFile.getAbsolutePath()));
-            this.filesystem = OBJECT_MAPPER.readValue(configFile, new TypeReference<FileSystem>() {});
+            this.filesystem = OBJECT_MAPPER.readValue(configFile, new TypeReference<>() {
+            });
         } else {
             Logger.info("[APPLICATION] Loading config from default config file");
             InputStream is = getClass().getResourceAsStream(CONFIG_FILE_NAME);
-            this.filesystem = OBJECT_MAPPER.readValue(is, new TypeReference<FileSystem>() {});
+            this.filesystem = OBJECT_MAPPER.readValue(is, new TypeReference<>() {
+            });
         }
 
     }

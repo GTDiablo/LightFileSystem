@@ -24,13 +24,12 @@ public class ApplicationGUI extends Application{
         Parent root = FXMLLoader.load(getClass().getResource("MainSceene.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Best Application");
+        stage.setTitle("Light File System - linux filesystem emulator");
         stage.show();
     }
 
     @Override
     public void stop() throws IOException {
-        System.out.println("Closing");
         lfs.saveConfigFile();
     }
 }

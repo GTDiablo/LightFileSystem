@@ -7,6 +7,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.tinylog.Logger;
 
 /**
  * Fájl osztály a fájl adatainak tárolására.
@@ -36,10 +37,7 @@ public class File {
 
     @Override
     public boolean equals(Object other){
-        if(other instanceof File && this.title.equals(((File) other).getTitle())){
-            return true;
-        }
-        return false;
+        return other instanceof File && this.title.equals(((File) other).getTitle());
     }
 
     public File(){}
@@ -48,7 +46,7 @@ public class File {
         this.author = author;
         this.created = new Date();
         this.updated = new Date();
-        this.groups = new ArrayList<Group>();
+        this.groups = new ArrayList<>();
     }
 
     /**
@@ -61,17 +59,11 @@ public class File {
         return !this.password.equals("");
     }
 
-    /**
-     * A fájlt le tudjuk védeni egy jelszóval.
-     *
-     * @param password A jelszó a fájlhoz.
-     */
-    /*
-    public void setPassword(String password){
-        this.password = Optional.of(password);
+    public void setContent(String content){
+        Logger.info(String.format("[APPLICATION] Updating content of file: %s", this.title));
+        this.content = content;
+        this.updated = new Date();
     }
-
-     */
 
     /**
      * A megadott csoportok tulajdonába kerül a fájl.
