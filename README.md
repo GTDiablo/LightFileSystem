@@ -40,4 +40,4 @@ Program csomagolása jar fájlba, majd futtatása:
 
 Majd a `/target` mappában keressük meg a generált jar fájlt és adjuk ki a következő parancsot:
 
-    java -jar LightFileSystem-SNAPSHOT-1.jar
+    java -jar LightFileSystem-1.0.jar
