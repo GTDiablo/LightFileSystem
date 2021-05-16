@@ -7,6 +7,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.event.ActionEvent;
@@ -82,10 +83,16 @@ public class ApplicationGUIController implements Initializable {
                 .map(File::getTitle)
                 .collect(Collectors.toList());
 
-        var users = lfs
-                .getFilesystem()
-                .getUsers();
-
+        this.setCurrentFilePasswordButton.setOnAction(e -> {
+            var currentFile = lfs.getStateManager().getCurrentFile();
+            var currentUser = lfs.getStateManager().getCurrentUser();
+            if(currentFile.isPresent() && currentUser.isPresent()){
+                var access = AccessChecker.getUserAccess(currentFile.get(), currentUser.get());
+                if(List.of(Access.WRITE, Access.ALL).contains(access)){
+                    currentFile.get().setPassword(this.setCurrentFilePasswordFiled.getText());
+                }
+            }
+        });
 
         currentFileOtherAccessChoiceBox.getItems().addAll(
                 Access.NONE,
@@ -104,10 +111,8 @@ public class ApplicationGUIController implements Initializable {
         currentFileOtherAccessChoiceBox.setOnAction(this::onOtherAccessSelect);
         currentFileGroupAccessChoiceBox.setOnAction(this::onGroupAccessSelect);
 
-
-
         currentUserSelector.setConverter(new UserStringConverter());
-        currentUserSelector.getItems().addAll(users);
+        currentUserSelector.getItems().addAll(lfs.getFilesystem().getUsers());
         currentUserSelector.setValue(lfs.getStateManager().getCurrentUser().get());
         currentUserSelector.setOnAction(this::onUserSelect);
 
@@ -135,19 +140,17 @@ public class ApplicationGUIController implements Initializable {
     private void onGroupAccessSelect(ActionEvent actionEvent) {
         Access access = currentFileGroupAccessChoiceBox.getValue();
         var currentFile = lfs.getStateManager().getCurrentFile();
-        if(currentFile.isPresent()){
-            currentFile.get().setGroupsAccess(access);
-        }
-        this.update();
+        currentFile.ifPresent(file -> file.setGroupsAccess(access));
+        this.updateFileRelatedGUI();
+        this.updateCurrentFileSetPasswordSection();
     }
 
     private void onOtherAccessSelect(ActionEvent actionEvent) {
         Access access = currentFileOtherAccessChoiceBox.getValue();
         var currentFile = lfs.getStateManager().getCurrentFile();
-        if(currentFile.isPresent()){
-            currentFile.get().setOtherAccess(access);
-        }
-        this.update();
+        currentFile.ifPresent(file -> file.setOtherAccess(access));
+        this.updateFileRelatedGUI();
+        this.updateCurrentFileSetPasswordSection();
     }
 
     public void onUserSelect(ActionEvent event){
@@ -156,12 +159,32 @@ public class ApplicationGUIController implements Initializable {
         this.update();
     }
 
-    public void update(){
+    public void updateFileRelatedGUI(){
         fileContentArea.setText(this.getTextAreaContent());
         fileContentArea.setDisable(this.isTextAreaDisabled());
         this.setCurrentFileInformation();
+    }
 
+    public void update(){
+        this.updateFileRelatedGUI();
+        this.updateCurrentFileSetPasswordSection();
         this.getFilePassword();
+    }
+
+    private void updateCurrentFileSetPasswordSection() {
+        var currentFile = lfs.getStateManager().getCurrentFile();
+        var currentUser = lfs.getStateManager().getCurrentUser();
+        if(currentFile.isPresent() && currentUser.isPresent()){
+            var access = AccessChecker.getUserAccess(currentFile.get(), currentUser.get());
+            if(List.of(Access.WRITE, Access.ALL).contains(access)){
+                this.setCurrentFilePasswordButton.setDisable(false);
+                this.setCurrentFilePasswordFiled.setDisable(false);
+            } else {
+                this.setCurrentFilePasswordButton.setDisable(true);
+                this.setCurrentFilePasswordFiled.setDisable(true);
+            }
+        }
+
     }
 
     public Boolean isTextAreaDisabled(){
@@ -204,6 +227,7 @@ public class ApplicationGUIController implements Initializable {
         var currentFile = lfs.getStateManager().getCurrentFile();
         if(currentFile.isPresent() && currentFile.get().getIsProtected()){
             this.textInputDialog.showAndWait();
+            this.textInputDialog.getOnCloseRequest();
             /*
             .ifPresent(response -> {
                 System.out.println(response);
