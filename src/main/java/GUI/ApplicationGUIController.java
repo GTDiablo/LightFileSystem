@@ -83,6 +83,21 @@ public class ApplicationGUIController implements Initializable {
                 .map(File::getTitle)
                 .collect(Collectors.toList());
 
+        this.addNewGroupButton.setOnAction(e -> {
+            TextInputDialog textInputDialog = new TextInputDialog();
+            textInputDialog.setHeaderText("What is the name of the new group?");
+            textInputDialog.showAndWait();
+
+            var groupName = textInputDialog.getEditor().getText();
+
+            if(!groupName.equals("") && lfs.getFilesystem().canCreateGroup(groupName)){
+                lfs.getFilesystem().createGroup(groupName);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.show();
+            }
+        });
+
         this.setCurrentFilePasswordButton.setOnAction(e -> {
             var currentFile = lfs.getStateManager().getCurrentFile();
             var currentUser = lfs.getStateManager().getCurrentUser();
@@ -227,7 +242,7 @@ public class ApplicationGUIController implements Initializable {
         var currentFile = lfs.getStateManager().getCurrentFile();
         if(currentFile.isPresent() && currentFile.get().getIsProtected()){
             this.textInputDialog.showAndWait();
-            this.textInputDialog.getOnCloseRequest();
+            //this.textInputDialog.getOnCloseRequest();
             /*
             .ifPresent(response -> {
                 System.out.println(response);
